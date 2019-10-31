@@ -1,0 +1,22 @@
+---
+title: "Read Data"
+author: "Alex Rhomberg"
+date: "10/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+```{r}
+mydataRaw <- read.csv("GameData.csv")
+```
+
+```{r}
+#mydataRaw %>% mutate(mydataRaw$LongBallx = if_else("1", 1, )
+```
+
