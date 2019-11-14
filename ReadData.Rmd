@@ -12,8 +12,90 @@ library(tidyverse)
 
 ## R Markdown
 
-```{r}
+```{r REMOVE}
+rm(mydataRaw)
+rm(longBallRaw)
+rm(keyPassRaw)
+rm(takeOnRaw)
+rm(goalRaw)
+rm(assistRaw)
+rm(shotRaw)
+rm(stealRaw)
+rm(tackleRaw)
+rm(turnoverRaw)
+rm(pressureRaw)
+rm(allowedShotRaw)
+```
+
+
+```{r Read In Game Data}
 mydataRaw <- read.csv("GameData.csv")
+```
+
+```{r Long Ball Raw}
+
+longBallRaw <- mydataRaw[,1:6]
+
+```
+
+```{r Key Pass Raw}
+
+keyPassRaw <- mydataRaw[,7:11]
+
+```
+
+```{r Take on Raw}
+
+takeOnRaw <- mydataRaw[,12:17]
+
+```
+
+```{r Goal Raw}
+
+goalRaw <- mydataRaw[,18:24]
+
+```
+
+```{r Assist Raw}
+
+assistRaw <- mydataRaw[, 25:28]
+
+```
+
+```{r Shot Raw}
+
+shotRaw <- mydataRaw[, 29:35]
+
+```
+
+```{r Steal Raw}
+
+stealRaw <- mydataRaw[, 36:41]
+
+```
+
+```{r Tackle Raw}
+
+tackleRaw <- mydataRaw[, 42:46]
+
+```
+
+```{r Turnover Raw}
+
+turnoverRaw <- mydataRaw[, 47:53]
+
+```
+
+```{r Pressure Raw}
+
+pressureRaw <- mydataRaw[, 54:59]
+
+```
+
+```{r Allowed Shot Raw}
+
+allowedShotRaw <- mydataRaw[, 60:64]
+
 ```
 
 ```{r}
