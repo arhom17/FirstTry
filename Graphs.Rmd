@@ -14,6 +14,6 @@ library(ggformula)
 ## R Markdown
 
 ```{r}
-
+longBallClean %>% gf_jitter(longballx ~ longbally, color =~ LongBallSuccess) %>% gf_facet_grid(~LongBallSuccess)
 ```
 

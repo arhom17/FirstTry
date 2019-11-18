@@ -36,7 +36,41 @@ mydataRaw <- read.csv("GameData.csv")
 
 longBallRaw <- mydataRaw[,1:6]
 
-#longBallRaw %>% mutate(longBallRaw$longballx = if_else(longBallRaw$LongBallWhere == 1, 1, if_else(longBallRaw$LongBallWhere == 2, 2, if_else(longBallRaw$LongBallWhere == 3, 3, if_else(longBallRaw$LongBallWhere == 4, 1, if_else(longBallRaw$LongBallWhere == 5, 2, if_else(longBallRaw$LongBallWhere == 6, 3, if_else(longBallRaw$LongBallWhere == 7, 1, if_else(longBallRaw$LongBallWhere == 8, 2, if_else(LongBallRaw$LongBallWhere == 9, 3, NA)))))))))) -> longBallClean
+longBallRaw %>% mutate(longballx = if_else(LongBallWhere == 1, 1, 
+                                           if_else(LongBallWhere == 2, 2, 
+                                                   if_else(LongBallWhere == 3, 3, 
+                                                           if_else(LongBallWhere == 4, 1, 
+                                                                   if_else(LongBallWhere == 5, 2, 
+                                                                           if_else(LongBallWhere == 6, 3, 
+                                                                                   if_else(LongBallWhere == 7, 1, 
+                                                                                           if_else(LongBallWhere == 8, 2, 
+                                                                                                   if_else(LongBallWhere == 9, 3, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       ) %>% mutate(longbally = if_else(LongBallWhere == 1, 1, 
+                                           if_else(LongBallWhere == 2, 1, 
+                                                   if_else(LongBallWhere == 3, 1, 
+                                                           if_else(LongBallWhere == 4, 3, 
+                                                                   if_else(LongBallWhere == 5, 3, 
+                                                                           if_else(LongBallWhere == 6, 3, 
+                                                                                   if_else(LongBallWhere == 7, 5, 
+                                                                                           if_else(LongBallWhere == 8, 5, 
+                                                                                                   if_else(LongBallWhere == 9, 5, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       ) -> longBallClean
 
 ```
 
