@@ -135,7 +135,6 @@ allowedShotRaw <- mydataRaw[, 60:64]
 ```
 
 ```{r}
-#mydataRaw %>% mutate(mydataRaw$LongBallx = if_else("1", 1, )
 
 #If 1: (1,1)
 #If 2: (2,1)

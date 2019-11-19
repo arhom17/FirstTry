@@ -9,11 +9,18 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggformula)
+library(png)
+library(grid)
 ```
 
 ## R Markdown
 
 ```{r}
-longBallClean %>% gf_jitter(longballx ~ longbally, color =~ LongBallSuccess) %>% gf_facet_grid(~LongBallSuccess)
+img <- png::readPNG("blanksoccer.png")
+```
+
+
+```{r}
+#longBallClean %>% gf_jitter(longballx ~ longbally, color =~ LongBallSuccess) %>% scale_fill_continuous(guide = FALSE) %>% annotation_custom(rasterGrob(img, width = unit(1, "npc"),height = unit(1,"npc")),-Inf, Inf, -Inf, Inf)
 ```
 
