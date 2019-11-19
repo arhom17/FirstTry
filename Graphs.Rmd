@@ -16,7 +16,7 @@ library(grid)
 ## R Markdown
 
 ```{r}
-img <- png::readPNG("blanksoccer.png")
+img <- png::readPNG("soccerfield.png")
 ```
 
 
