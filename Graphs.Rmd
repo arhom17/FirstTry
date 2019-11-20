@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggformula)
 library(png)
+library(ggpubr)
 library(grid)
 ```
 
@@ -21,6 +22,9 @@ img <- png::readPNG("soccerfield.png")
 
 
 ```{r}
-#longBallClean %>% gf_jitter(longballx ~ longbally, color =~ LongBallSuccess) %>% scale_fill_continuous(guide = FALSE) %>% annotation_custom(rasterGrob(img, width = unit(1, "npc"),height = unit(1,"npc")),-Inf, Inf, -Inf, Inf)
+#longBallClean %>% gf_point(longballx ~ longbally, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.8, "npc"),height = unit(1.20,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(1.70,4.30), y = c(1.5,3.5))
+
+longBallClean %>% gf_point(longballx ~ longbally, alpha =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.8, "npc"),height = unit(1.20,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(0,6), y = c(0,4))
+
 ```
 
