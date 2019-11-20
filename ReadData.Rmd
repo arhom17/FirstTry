@@ -53,15 +53,15 @@ longBallRaw %>% mutate(longballx = if_else(LongBallWhere == 1, 1,
                                                            )
                                                    )
                                            )
-                       ) %>% mutate(longbally = if_else(LongBallWhere == 1, 1, 
-                                           if_else(LongBallWhere == 2, 1, 
-                                                   if_else(LongBallWhere == 3, 1, 
-                                                           if_else(LongBallWhere == 4, 3, 
-                                                                   if_else(LongBallWhere == 5, 3, 
-                                                                           if_else(LongBallWhere == 6, 3, 
-                                                                                   if_else(LongBallWhere == 7, 5, 
-                                                                                           if_else(LongBallWhere == 8, 5, 
-                                                                                                   if_else(LongBallWhere == 9, 5, NA_real_)
+                       ) %>% mutate(longbally = if_else(LongBallWhere == 1, 0.5, 
+                                           if_else(LongBallWhere == 2, 0.5, 
+                                                   if_else(LongBallWhere == 3, 0.5, 
+                                                           if_else(LongBallWhere == 4, 2.5, 
+                                                                   if_else(LongBallWhere == 5, 2.5, 
+                                                                           if_else(LongBallWhere == 6, 2.5, 
+                                                                                   if_else(LongBallWhere == 7, 4.5, 
+                                                                                           if_else(LongBallWhere == 8, 4.5, 
+                                                                                                   if_else(LongBallWhere == 9, 4.5, NA_real_)
                                                                                                    )
                                                                                            )
                                                                                    )
