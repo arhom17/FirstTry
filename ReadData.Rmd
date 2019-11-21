@@ -71,6 +71,7 @@ longBallRaw %>% mutate(longballx = if_else(LongBallWhere == 1, 1,
                                                    )
                                            )
                        ) -> longBallClean
+rm(longBallRaw)
 
 ```
 
