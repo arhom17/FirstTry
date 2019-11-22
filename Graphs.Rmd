@@ -22,12 +22,15 @@ img <- png::readPNG("soccerfield.png")
 
 
 ```{r Long Ball}
-longBallClean %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+#longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(0.9,1.9)) %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = .25, height = .5, position = "jitter")+ scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(0.35,4.1), y = c(-.15,6))
+
+#ADD JITTER TO ORIGINAL POINTS INSTEAD?
 ```
 
 ```{r Long Ball Success Rates}
 longBallClean %>%  group_by(LongBallSuccess) %>% 
-  count() %>% spread(LongBallSuccess, n)
+  count() %>% spread(LongBallSuccess, n) %>% mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
 ```
 
 
@@ -41,7 +44,7 @@ longBallClean %>%  group_by(LongBall, LongBallSuccess) %>%
   rename(JerseyNumber = LongBall,
          Successes = `1`,
          Fails = `2`) %>%
-  arrange(desc(SuccessRate))  
+  arrange(desc(Successes, SuccessRate))  
 ```
 
 
