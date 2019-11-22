@@ -25,8 +25,28 @@ img <- png::readPNG("soccerfield.png")
 longBallClean %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
+```{r Long Ball Success Rates}
+longBallClean %>%  group_by(LongBallSuccess) %>% 
+  count() %>% spread(LongBallSuccess, n)
+```
+
+
+```{r Long Ball Successs Rate by Player}
+longBallClean %>%  group_by(LongBall, LongBallSuccess) %>% 
+  count() %>% spread(LongBallSuccess, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>%
+  mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries ) %>%
+  rename(JerseyNumber = LongBall,
+         Successes = `1`,
+         Fails = `2`) %>%
+  arrange(desc(SuccessRate))  
+```
+
+
 ```{r Key Pass}
-keyPassClean %>% gf_jitter(keyPassy ~ keyPassx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+keyPassClean %>% gf_jitter(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Take On}
