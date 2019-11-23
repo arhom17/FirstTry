@@ -24,6 +24,8 @@ img <- png::readPNG("soccerfield.png")
 ```{r Long Ball}
 #longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(0.9,1.9)) %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = .25, height = .5, position = "jitter")+ scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(0.35,4.1), y = c(-.15,6))
 
+longBallClean %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+
 #ADD JITTER TO ORIGINAL POINTS INSTEAD?
 ```
 
@@ -52,8 +54,27 @@ longBallClean %>%  group_by(LongBall, LongBallSuccess) %>%
 keyPassClean %>% gf_jitter(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
+```{r Key Pass by Player}
+keyPassClean %>%  group_by(KeyPass) %>% 
+  count() %>% spread(KeyPass, n)  
+# Make Vertical 
+```
+
 ```{r Take On}
 takeOnClean %>% gf_jitter(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+```
+
+```{r Take Successs Rate by Player}
+takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>% 
+  count() %>% spread(TakeOnSuccess, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>%
+  mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries ) %>%
+  rename(JerseyNumber = TakeOn,
+         Successes = `1`,
+         Fails = `2`) %>%
+  arrange(desc(Successes, SuccessRate))  
 ```
 
 ```{r Steal}
@@ -61,15 +82,67 @@ stealClean %>% gf_bar( ~ Steal, color =~ StealHow ,width = 1, height = 1)
 #Fix labs and add rug?
 ```
 
+```{r Steal How by Player}
+stealClean %>%  group_by(Steal, StealHow) %>% 
+  count() %>% spread(StealHow, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>% mutate(Total = `1` + `2`) %>%
+  rename(JerseyNumber = Steal,
+      Foot = `1`,
+         Head = `2`) %>%
+  arrange(desc(Total)) 
+```
+
 ```{r Tackle}
 tackleClean %>% gf_bar( ~ Tackle, color = ~TackleHow,width = 1, height = 1)
 #Fix labs and add rug?
+```
+
+```{r Tackle How by Player}
+tackleClean %>%  group_by(Tackle, TackleHow) %>% 
+  count() %>% spread(TackleHow, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>% mutate(Total = `1` + `2`) %>%
+  rename(JerseyNumber = Tackle,
+      Standing = `1`,
+         Sliding = `2`) %>%
+  arrange(desc(Total)) 
 ```
 
 ```{r Turnover}
 turnoverClean %>% gf_jitter(turnovery ~ turnoverx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
+```{r Turnover How by Player}
+turnoverClean %>%  group_by(Turnover, TurnoverHow) %>% 
+  count() %>% spread(TurnoverHow, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>% mutate(Total = `1` + `2`) %>%
+  rename(JerseyNumber = Turnover,
+      Pass = `1`,
+         Standing = `2`) %>%
+  arrange(desc(Total)) 
+```
+
 ```{r Pressure}
 pressureClean %>% gf_jitter(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+```
+
+```{r Pressure Success Rates}
+pressureClean %>%  group_by(PressureSuccess) %>% 
+  count() %>% spread(PressureSuccess, n) %>% mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
+```
+
+```{r Pressure Successs Rate by Player}
+pressureClean %>%  group_by(Pressure, PressureSuccess) %>% 
+  count() %>% spread(PressureSuccess, n) %>% 
+  mutate( `1` = replace_na(`1`,0),
+          `2` = replace_na(`2`,0)) %>%
+  mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries ) %>%
+  rename(JerseyNumber = Pressure,
+         Successes = `1`,
+         Fails = `2`) %>%
+  arrange(desc(Successes, SuccessRate))  
 ```
