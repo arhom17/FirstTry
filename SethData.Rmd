@@ -1,0 +1,234 @@
+---
+title: "SethData"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+```{r REMOVE}
+rm(mydataRaw)
+rm(longBallRaw)
+rm(keyPassRaw)
+rm(takeOnRaw)
+rm(goalRaw)
+rm(assistRaw)
+rm(shotRaw)
+rm(stealRaw)
+rm(tackleRaw)
+rm(turnoverRaw)
+rm(pressureRaw)
+rm(allowedShotRaw)
+```
+
+
+```{r Read In Game Data}
+mydataRaw <- read.csv("GameData.csv")
+```
+
+```{r Long Ball Raw}
+
+longBallRaw <- mydataRaw[,1:6]
+
+longBallRaw %>% mutate(longballx = if_else(LongBallWhere == 1, 1, 
+                                           if_else(LongBallWhere == 2, 2, 
+                                                   if_else(LongBallWhere == 3, 3, 
+                                                           if_else(LongBallWhere == 4, 1, 
+                                                                   if_else(LongBallWhere == 5, 2, 
+                                                                           if_else(LongBallWhere == 6, 3, 
+                                                                                   if_else(LongBallWhere == 7, 1, 
+                                                                                           if_else(LongBallWhere == 8, 2, 
+                                                                                                   if_else(LongBallWhere == 9, 3, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       ) %>% mutate(longbally = if_else(LongBallWhere == 1, 0.5, 
+                                           if_else(LongBallWhere == 2, 0.5, 
+                                                   if_else(LongBallWhere == 3, 0.5, 
+                                                           if_else(LongBallWhere == 4, 2.5, 
+                                                                   if_else(LongBallWhere == 5, 2.5, 
+                                                                           if_else(LongBallWhere == 6, 2.5, 
+                                                                                   if_else(LongBallWhere == 7, 4.5, 
+                                                                                           if_else(LongBallWhere == 8, 4.5, 
+                                                                                                   if_else(LongBallWhere == 9, 4.5, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       )%>% mutate(new_game = if_else(LongBallTimeStamp < lag(LongBallTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> longBallClean
+
+rm(longBallRaw)
+
+```
+
+```{r Key Pass Raw}
+
+keyPassRaw <- mydataRaw[,7:11]
+
+keyPassRaw %>% mutate(keyPassx = if_else(KeyPassWhere == 1, 1, 
+                                           if_else(KeyPassWhere == 2, 2, 
+                                                   if_else(KeyPassWhere == 3, 3, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(keyPassy = if_else(KeyPassWhere == 1, 4.5, 
+                                           if_else(KeyPassWhere == 2, 4.5, 
+                                                   if_else(KeyPassWhere == 3, 4.5, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(new_game = if_else(KeyPassTimeStamp < lag(KeyPassTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> keyPassClean
+
+rm(keyPassRaw)
+
+```
+
+```{r Take on Raw}
+
+takeOnRaw <- mydataRaw[,12:17]
+
+takeOnRaw %>% mutate(takeOnx = if_else(TakeOnWhere == 1, 1, 
+                                           if_else(TakeOnWhere == 2, 2, 
+                                                   if_else(TakeOnWhere == 3, 3, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(takeOny = if_else(TakeOnWhere == 1, 4.5, 
+                                           if_else(TakeOnWhere == 2, 4.5, 
+                                                   if_else(TakeOnWhere == 3, 4.5, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(new_game = if_else(TakeOnTimeStamp < lag(TakeOnTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> takeOnClean
+
+rm(takeOnRaw)
+
+```
+
+```{r Goal Raw}
+
+goalRaw <- mydataRaw[,18:24]
+
+#Inside or Outside Box
+
+```
+
+```{r Assist Raw}
+
+assistClean <- mydataRaw[, 25:28]
+
+```
+
+```{r Shot Raw}
+
+shotRaw <- mydataRaw[, 29:35]
+
+#Inside or Outside Box
+
+```
+
+```{r Steal Raw}
+
+stealClean <- mydataRaw[, 36:41]
+
+```
+
+```{r Tackle Raw}
+
+tackleClean <- mydataRaw[, 42:46]
+
+```
+
+```{r Turnover Raw}
+
+turnoverRaw <- mydataRaw[, 47:53]
+
+turnoverRaw %>% mutate(turnoverx = if_else(TurnoverWhere == 1, 1, 
+                                           if_else(TurnoverWhere == 2, 2, 
+                                                   if_else(TurnoverWhere == 3, 3, 
+                                                           if_else(TurnoverWhere == 4, 1, 
+                                                                   if_else(TurnoverWhere == 5, 2, 
+                                                                           if_else(TurnoverWhere == 6, 3, 
+                                                                                   if_else(TurnoverWhere == 7, 1, 
+                                                                                           if_else(TurnoverWhere == 8, 2, 
+                                                                                                   if_else(TurnoverWhere == 9, 3, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       ) %>% mutate(turnovery = if_else(TurnoverWhere == 1, 0.5, 
+                                           if_else(TurnoverWhere == 2, 0.5, 
+                                                   if_else(TurnoverWhere == 3, 0.5, 
+                                                           if_else(TurnoverWhere == 4, 2.5, 
+                                                                   if_else(TurnoverWhere == 5, 2.5, 
+                                                                           if_else(TurnoverWhere == 6, 2.5, 
+                                                                                   if_else(TurnoverWhere == 7, 4.5, 
+                                                                                           if_else(TurnoverWhere == 8, 4.5, 
+                                                                                                   if_else(TurnoverWhere == 9, 4.5, NA_real_)
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+                                                                           )
+                                                                   )
+                                                           )
+                                                   )
+                                           )
+                       ) %>% mutate(new_game = if_else(TurnoverTimeStamp < lag(TurnoverTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> turnoverClean
+
+rm(turnoverRaw)
+
+```
+
+```{r Pressure Raw}
+
+pressureRaw <- mydataRaw[, 54:59]
+
+pressureRaw %>% mutate(pressurex = if_else(PressureWhere == 1, 1, 
+                                           if_else(PressureWhere == 2, 2, 
+                                                   if_else(PressureWhere == 3, 3, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(pressurey = if_else(PressureWhere == 1, 4.5, 
+                                           if_else(PressureWhere == 2, 4.5, 
+                                                   if_else(PressureWhere == 3, 4.5, NA_real_
+                                                                                                   )
+                                                                                           )
+                                                                                   )
+
+                       ) %>% mutate(new_game = if_else(PressureTimeStamp < lag(PressureTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> pressureClean
+
+rm(pressureRaw)
+
+```
+
+```{r Allowed Shot Raw}
+
+allowedShotRaw <- mydataRaw[, 60:64]
+
+#Inside or Outside Box
+
+```
+
