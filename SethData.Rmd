@@ -126,13 +126,17 @@ rm(takeOnRaw)
 
 goalRaw <- mydataRaw[,18:24]
 
+goalRaw %>% mutate(new_game = if_else(GoalTimeStamp < lag(GoalTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> goalClean
+
 #Inside or Outside Box
 
 ```
 
 ```{r Assist Raw}
 
-assistClean <- mydataRaw[, 25:28]
+assistRaw <- mydataRaw[, 25:28]
+
+assistClean %>% mutate(new_game = if_else(AssistTimeStamp < lag(AssistTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> assistClean
 
 ```
 
