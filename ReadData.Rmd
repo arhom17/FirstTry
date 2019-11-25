@@ -96,7 +96,10 @@ keyPassRaw %>% mutate(keyPassx = if_else(KeyPassWhere == 1, 1,
                                                                                            )
                                                                                    )
 
-                       ) -> keyPassClean
+                       ) %>%
+  mutate(keyPassx = keyPassx+runif(length(keyPassx), min = -1, max = 1),
+         keyPassy = keyPassy+runif(length(keyPassy), min = -1, max = 1)) %>% mutate(new_game = if_else(KeyPassTimeStamp < lag(KeyPassTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> keyPassClean
+
 rm(keyPassRaw)
 
 ```
@@ -119,7 +122,10 @@ takeOnRaw %>% mutate(takeOnx = if_else(TakeOnWhere == 1, 1,
                                                                                            )
                                                                                    )
 
-                       ) -> takeOnClean
+                       ) %>%
+  mutate(takeOnx = takeOnx+runif(length(takeOnx), min = -1, max = 1),
+         takeOny = takeOny+runif(length(takeOny), min = -1, max = 1)) %>% mutate(new_game = if_else(TakeOnTimeStamp < lag(TakeOnTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> takeOnClean
+
 rm(takeOnRaw)
 
 ```
@@ -196,7 +202,10 @@ turnoverRaw %>% mutate(turnoverx = if_else(TurnoverWhere == 1, 1,
                                                            )
                                                    )
                                            )
-                       ) -> turnoverClean
+                       ) %>%
+  mutate(turnoverx = turnoverx+runif(length(turnoverx), min = -1, max = 1),
+         turnovery = turnovery+runif(length(turnovery), min = -1, max = 1)) %>% mutate(new_game = if_else(TurnoverTimeStamp < lag(TurnoverTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> turnoverClean
+
 rm(turnoverRaw)
 
 ```
@@ -219,7 +228,10 @@ pressureRaw %>% mutate(pressurex = if_else(PressureWhere == 1, 1,
                                                                                            )
                                                                                    )
 
-                       ) -> pressureClean
+                       ) %>%
+  mutate(pressurex = pressurex+runif(length(pressurex), min = -1, max = 1),
+         pressurey = pressurey+runif(length(pressurey), min = -1, max = 1)) %>% mutate(new_game = if_else(PressureTimeStamp < lag(PressureTimeStamp), 1, 0), new_game = replace_na(new_game,0), game_number = cumsum(new_game)) -> pressureClean
+
 rm(pressureRaw)
 
 ```

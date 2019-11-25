@@ -22,9 +22,8 @@ img <- png::readPNG("soccerfield.png")
 
 
 ```{r Long Ball}
-#longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(0.9,1.9)) %>% gf_jitter(longbally ~ longballx, color =~ LongBallSuccess, width = .25, height = .5, position = "jitter")+ scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(0.35,4.1), y = c(-.15,6))
 
-longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(1,1)) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) #+ lims(x=c(-0.6,4.6), y = c(0,6))
+longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(1,1)) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) #+ lims(x=c(-0.5,4.5), y = c(0,6))
 
 longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,6))
 
@@ -52,7 +51,7 @@ longBallClean %>%  group_by(LongBall, LongBallSuccess) %>%
 
 
 ```{r Key Pass}
-keyPassClean %>% gf_jitter(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+keyPassClean %>% gf_point(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Key Pass by Player}
@@ -62,7 +61,7 @@ keyPassClean %>%  group_by(KeyPass) %>%
 ```
 
 ```{r Take On}
-takeOnClean %>% gf_jitter(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+takeOnClean %>% gf_point(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Take Successs Rate by Player}
@@ -111,7 +110,7 @@ tackleClean %>%  group_by(Tackle, TackleHow) %>%
 ```
 
 ```{r Turnover}
-turnoverClean %>% gf_jitter(turnovery ~ turnoverx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+turnoverClean %>% gf_point(turnovery ~ turnoverx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Turnover How by Player}
@@ -126,7 +125,7 @@ turnoverClean %>%  group_by(Turnover, TurnoverHow) %>%
 ```
 
 ```{r Pressure}
-pressureClean %>% gf_jitter(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+pressureClean %>% gf_point(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Pressure Success Rates}
