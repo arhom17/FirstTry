@@ -23,7 +23,7 @@ img <- png::readPNG("soccerfield.png")
 
 ```{r Long Ball}
 
-longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(1,1)) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) #+ lims(x=c(-0.5,4.5), y = c(0,6))
+#longBallClean %>% gf_bin2d(longbally ~ longballx, color =~ LongBallSuccess, binwidth = c(1,1)) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) #+ lims(x=c(-0.5,4.5), y = c(0,6))
 
 longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,6))
 
@@ -77,11 +77,6 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
   arrange(desc(Successes, SuccessRate))  
 ```
 
-```{r Steal}
-stealClean %>% gf_bar( ~ Steal, color =~ StealHow ,width = 1, height = 1)
-#Fix labs and add rug?
-```
-
 ```{r Steal How by Player}
 stealClean %>%  group_by(Steal, StealHow) %>% 
   count() %>% spread(StealHow, n) %>% 
@@ -91,11 +86,6 @@ stealClean %>%  group_by(Steal, StealHow) %>%
       Foot = `1`,
          Head = `2`) %>%
   arrange(desc(Total)) 
-```
-
-```{r Tackle}
-tackleClean %>% gf_bar( ~ Tackle, color = ~TackleHow,width = 1, height = 1)
-#Fix labs and add rug?
 ```
 
 ```{r Tackle How by Player}
@@ -146,3 +136,5 @@ pressureClean %>%  group_by(Pressure, PressureSuccess) %>%
          Fails = `2`) %>%
   arrange(desc(Successes, SuccessRate))  
 ```
+
+

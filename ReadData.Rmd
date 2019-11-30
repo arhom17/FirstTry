@@ -244,4 +244,9 @@ allowedShotRaw <- mydataRaw[, 60:64]
 
 ```
 
+```{r Create Master}
+
+bind_cols(longBallClean, keyPassClean, takeOnClean, goalRaw, assistClean, shotRaw, stealClean, tackleClean, turnoverClean, pressureClean, allowedShotRaw) -> Master
+
+```
 
