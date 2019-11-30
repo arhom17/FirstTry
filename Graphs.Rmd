@@ -29,6 +29,11 @@ longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, widt
 
 ```
 
+```{r Long Ball Game Duration}
+longBallClean %>% filter(LongBallTimeStamp <= 95) %>% gf_point(LongBall~LongBallTimeStamp, color =~ LongBallSuccess)
+```
+
+
 ```{r Long Ball Success Rates}
 longBallClean %>%  group_by(LongBallSuccess) %>% 
   count() %>% spread(LongBallSuccess, n) %>% mutate(Tries = `1`+`2`,
@@ -54,6 +59,11 @@ longBallClean %>%  group_by(LongBall, LongBallSuccess) %>%
 keyPassClean %>% gf_point(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
+```{r Key Pass Game Duration}
+keyPassClean %>% filter(KeyPassTimeStamp <= 95) %>% gf_point(KeyPass~KeyPassTimeStamp) 
+```
+
+
 ```{r Key Pass by Player}
 keyPassClean %>%  group_by(KeyPass) %>% 
   count() %>% spread(KeyPass, n)  
@@ -62,6 +72,10 @@ keyPassClean %>%  group_by(KeyPass) %>%
 
 ```{r Take On}
 takeOnClean %>% gf_point(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+```
+
+```{r Take On Game Duration}
+takeOnClean %>% filter(TakeOnTimeStamp <= 95) %>% gf_point(TakeOn~TakeOnTimeStamp)
 ```
 
 ```{r Take Successs Rate by Player}
