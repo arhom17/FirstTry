@@ -250,3 +250,10 @@ bind_cols(longBallClean, keyPassClean, takeOnClean, goalRaw, assistClean, shotRa
 
 ```
 
+```{r Save data}
+
+save(longBallClean, keyPassClean, takeOnClean, goalRaw, assistClean, shotRaw, stealClean, tackleClean, turnoverClean, pressureClean, allowedShotRaw, file = "SavedData.rda")
+
+```
+
+

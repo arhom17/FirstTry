@@ -3,8 +3,8 @@ title: "GraphAnalysis"
 author: "Alex Rhomberg"
 date: "12/2/2019"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +14,7 @@ library(ggformula)
 library(png)
 library(ggpubr)
 library(grid)
+load("SavedData.rda")
 ```
 
 ## R Markdown

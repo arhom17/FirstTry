@@ -12,6 +12,7 @@ library(ggformula)
 library(png)
 library(ggpubr)
 library(grid)
+load("SavedData.rda")
 ```
 
 ## R Markdown
