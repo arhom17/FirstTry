@@ -78,7 +78,7 @@ takeOnClean %>% gf_point(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_
 takeOnClean %>% filter(TakeOnTimeStamp <= 95) %>% gf_point(TakeOn~TakeOnTimeStamp)
 ```
 
-```{r Take Successs Rate by Player}
+```{r Take On Successs Rate by Player}
 takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>% 
   count() %>% spread(TakeOnSuccess, n) %>% 
   mutate( `1` = replace_na(`1`,0),
@@ -89,6 +89,18 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
          Successes = `1`,
          Fails = `2`) %>%
   arrange(desc(Successes, SuccessRate))  
+```
+
+```{r Goal Game Duration}
+goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
+```
+
+```{r Assist Game Duration}
+assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
+```
+
+```{r Shot Game Duration}
+shotRaw %>% filter(ShotTimeStamp <= 95) %>% gf_point(Shot~ShotTimeStamp, color =~ ShotFrame)
 ```
 
 ```{r Steal How by Player}
@@ -102,6 +114,12 @@ stealClean %>%  group_by(Steal, StealHow) %>%
   arrange(desc(Total)) 
 ```
 
+
+
+```{r Steal Game Duration}
+stealClean %>% filter(StealTimeStamp <= 95) %>% gf_point(Steal~StealTimeStamp)
+```
+
 ```{r Tackle How by Player}
 tackleClean %>%  group_by(Tackle, TackleHow) %>% 
   count() %>% spread(TackleHow, n) %>% 
@@ -113,8 +131,16 @@ tackleClean %>%  group_by(Tackle, TackleHow) %>%
   arrange(desc(Total)) 
 ```
 
+```{r Tackle Game Duration}
+tackleClean %>% filter(TackleTimeStamp <= 95) %>% gf_point(Tackle~TackleTimeStamp)
+```
+
 ```{r Turnover}
 turnoverClean %>% gf_point(turnovery ~ turnoverx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+```
+
+```{r Turnover Game Duration}
+turnoverClean %>% filter(TurnoverTimeStamp <= 95) %>% gf_point(Turnover~TurnoverTimeStamp)
 ```
 
 ```{r Turnover How by Player}
@@ -130,6 +156,10 @@ turnoverClean %>%  group_by(Turnover, TurnoverHow) %>%
 
 ```{r Pressure}
 pressureClean %>% gf_point(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+```
+
+```{r Presssure Game Duration}
+pressureClean %>% filter(PressureTimeStamp <= 95) %>% gf_point(Pressure~PressureTimeStamp)
 ```
 
 ```{r Pressure Success Rates}
@@ -151,4 +181,6 @@ pressureClean %>%  group_by(Pressure, PressureSuccess) %>%
   arrange(desc(Successes, SuccessRate))  
 ```
 
-
+```{r Allowed Shot Game Duration}
+allowedShotRaw %>% filter(AllowedShotTimeStamp <= 95) %>% gf_point(AllowedShot~AllowedShotTimeStamp)
+```

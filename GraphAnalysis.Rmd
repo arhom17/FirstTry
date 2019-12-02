@@ -1,0 +1,63 @@
+---
+title: "GraphAnalysis"
+author: "Alex Rhomberg"
+date: "12/2/2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggformula)
+library(png)
+library(ggpubr)
+library(grid)
+```
+
+## R Markdown
+
+```{r Long Ball Game Duration}
+longBallClean %>% filter(LongBallTimeStamp <= 95, LongBallSuccess == 1) %>% gf_point(LongBall~LongBallTimeStamp)
+```
+
+```{r Key Pass Game Duration}
+keyPassClean %>% filter(KeyPassTimeStamp <= 95) %>% gf_point(KeyPass~KeyPassTimeStamp) 
+```
+
+```{r Take On Game Duration}
+takeOnClean %>% filter(TakeOnTimeStamp <= 95) %>% gf_point(TakeOn~TakeOnTimeStamp)
+```
+
+```{r Goal Game Duration}
+goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
+```
+
+```{r Assist Game Duration}
+assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
+```
+
+```{r Shot Game Duration}
+shotRaw %>% filter(ShotTimeStamp <= 95, ShotFrame == 1) %>% gf_point(Shot~ShotTimeStamp)
+```
+
+```{r Steal Game Duration}
+stealClean %>% filter(StealTimeStamp <= 95) %>% gf_point(Steal~StealTimeStamp)
+```
+
+```{r Tackle Game Duration}
+tackleClean %>% filter(TackleTimeStamp <= 95) %>% gf_point(Tackle~TackleTimeStamp)
+```
+
+```{r Turnover Game Duration}
+turnoverClean %>% filter(TurnoverTimeStamp <= 95) %>% gf_point(Turnover~TurnoverTimeStamp)
+```
+
+```{r Presssure Game Duration}
+pressureClean %>% filter(PressureTimeStamp <= 95) %>% gf_point(Pressure~PressureTimeStamp)
+```
+
+```{r Allowed Shot Game Duration}
+allowedShotRaw %>% filter(AllowedShotTimeStamp <= 95) %>% gf_point(AllowedShot~AllowedShotTimeStamp)
+```
