@@ -67,8 +67,7 @@ keyPassClean %>% filter(KeyPassTimeStamp <= 95) %>% gf_point(KeyPass~KeyPassTime
 
 ```{r Key Pass by Player}
 keyPassClean %>%  group_by(KeyPass) %>% 
-  count() %>% rename(JerseyNumber = KeyPass, numberOfKeyPasses = n)  
-# Make Vertical 
+  count() %>% rename(JerseyNumber = KeyPass, numberOfKeyPasses = n) %>% arrange(desc(numberOfKeyPasses))
 ```
 
 ```{r Take On}
