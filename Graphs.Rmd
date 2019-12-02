@@ -95,6 +95,19 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
 goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
 ```
 
+```{r GoalHow table}
+goalRaw %>% group_by(GoalHow) %>% count() %>% spread(GoalHow, n)
+```
+
+```{r GoalWhere table}
+goalRaw %>% group_by(GoalWhere) %>% count() %>% spread(GoalWhere, n)
+```
+
+```{r GoalWhich table}
+goalRaw %>% group_by(GoalWhich) %>% count() %>% arrange(desc(n))
+```
+
+
 ```{r Assist Game Duration}
 assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
 ```
