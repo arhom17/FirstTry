@@ -3,8 +3,8 @@ title: "GraphAnalysis"
 author: "Alex Rhomberg"
 date: "12/2/2019"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
