@@ -28,8 +28,6 @@ img <- png::readPNG("soccerfield.png")
 
 longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,6))
 
-longBallClean %>% filter(LongBallSuccess == 1) %>% gf_point(longbally ~ longballx, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,6))
-
 ```
 
 ```{r Long Ball Game Duration}
@@ -69,7 +67,8 @@ keyPassClean %>% filter(KeyPassTimeStamp <= 95) %>% gf_point(KeyPass~KeyPassTime
 
 ```{r Key Pass by Player}
 keyPassClean %>%  group_by(KeyPass) %>% 
-  count() %>% rename(JerseyNumber = KeyPass, numberOfKeyPasses = n) %>% arrange(desc(numberOfKeyPasses))
+  count() %>% rename(JerseyNumber = KeyPass, numberOfKeyPasses = n)  
+# Make Vertical 
 ```
 
 ```{r Take On}
@@ -96,19 +95,6 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
 ```{r Goal Game Duration}
 goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
 ```
-
-```{r GoalHow table}
-goalRaw %>% group_by(GoalHow) %>% count() %>% spread(GoalHow, n)
-```
-
-```{r GoalWhere table}
-goalRaw %>% group_by(GoalWhere) %>% count() %>% spread(GoalWhere, n)
-```
-
-```{r GoalWhich table}
-goalRaw %>% group_by(GoalWhich) %>% count() %>% arrange(desc(n))
-```
-
 
 ```{r Assist Game Duration}
 assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
@@ -170,7 +156,7 @@ turnoverClean %>%  group_by(Turnover, TurnoverHow) %>%
 ```
 
 ```{r Pressure}
-pressureClean %>% gf_point(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
+pressureClean %>% gf_point(pressurey ~ pressurex, color =~ PressureSuccess, width = 1, height = 1) + scale_color_continuous(low = "red", high = "blue") + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Presssure Game Duration}
