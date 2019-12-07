@@ -35,6 +35,15 @@ takeOnClean %>% filter(TakeOnTimeStamp <= 95) %>% gf_point(TakeOn~TakeOnTimeStam
 goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
 ```
 
+```{r Goal Game Duration}
+goalRaw %>% mutate(Goal = as_factor(Goal),
+                   Goal = fct_lump_min(Goal, min = 5)) %>%
+                   
+                   filter(GoalTimeStamp <= 95) %>%
+  mutate(Goal = as_factor(Goal),
+         Goal = fct_recode(Goal,"T. Huerta"="10", "M. Broderick"="5", "M. Histed"="17")) %>% gf_histogram(~GoalTimeStamp, fill = ~ Goal) 
+```
+
 ```{r Assist Game Duration}
 assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
 ```

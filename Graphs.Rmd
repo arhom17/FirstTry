@@ -115,6 +115,11 @@ stealClean %>%  group_by(Steal, StealHow) %>%
   arrange(desc(Total)) 
 ```
 
+```{r Steal Success Rates}
+stealClean %>%  group_by(StealHow) %>% 
+  count() %>% spread(StealHow, n) #%>% mutate(Tries = `1`+`2`, SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
+```
+
 
 
 ```{r Steal Game Duration}
@@ -130,6 +135,11 @@ tackleClean %>%  group_by(Tackle, TackleHow) %>%
       Standing = `1`,
          Sliding = `2`) %>%
   arrange(desc(Total)) 
+```
+
+```{r Tackle How Rates}
+tackleClean %>%  group_by(TackleHow) %>% 
+  count() %>% spread(TackleHow, n) #%>% mutate(Tries = `1`+`2`, SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
 ```
 
 ```{r Tackle Game Duration}
