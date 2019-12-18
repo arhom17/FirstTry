@@ -34,6 +34,12 @@ longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, widt
 longBallClean %>% filter(LongBallTimeStamp <= 95) %>% gf_point(LongBall~LongBallTimeStamp, color =~ LongBallSuccess) + scale_color_continuous(low = "blue", high = "red")
 ```
 
+```{r Long Ball Game Duration}
+longBallClean %>% mutate(LongBall = as_factor(LongBall), LongBall = fct_lump_min(LongBall, min = 1)) %>% filter(LongBallTimeStamp <= 95) %>%
+  mutate(LongBallSuccess = as_factor(LongBallSuccess),
+         LongBallSuccess = fct_recode(LongBallSuccess,"Successful"="1", "Unsuccessful"="2")) %>% gf_histogram(~LongBallTimeStamp, fill =~ LongBallSuccess) + scale_fill_manual(values = c("Blue", "Red"))
+```
+
 
 ```{r Long Ball Success Rates}
 longBallClean %>%  group_by(LongBallSuccess) %>% 
@@ -94,6 +100,15 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
 
 ```{r Goal Game Duration}
 goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
+```
+
+```{r Goal Game Duration}
+goalRaw %>% mutate(Goal = as_factor(Goal),
+                   Goal = fct_lump_min(Goal, min = 5)) %>%
+                   
+                   filter(GoalTimeStamp <= 95) %>%
+  mutate(Goal = as_factor(Goal),
+         Goal = fct_recode(Goal,"T. Huerta"="10", "M. Broderick"="5", "M. Histed"="17")) %>% gf_histogram(~GoalTimeStamp, fill = ~ Goal) 
 ```
 
 ```{r Assist Game Duration}
