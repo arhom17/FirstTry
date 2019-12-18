@@ -24,7 +24,7 @@ ui <- fluidPage(
                
         )
     ),
-    fluidRow(column(width = 12, h4("Brushed Points"), verbatimTextOutput("brush_info")))
+    fluidRow(column(width = 12, h4("Brushed Points For BOTH Only"), verbatimTextOutput("brush_info")))
 )
 
 server <- function(input, output) {
