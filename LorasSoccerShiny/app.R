@@ -16,14 +16,15 @@ ui <- fluidPage(
 
         mainPanel(
             
-            tabsetPanel(type = "tabs", tabPanel("Location", h4("Long Ball Location", plotOutput("longBallPlot1", width = "75%"))), tabPanel("Time", h4("Long Ball Time", plotOutput("longBallPlot2")))),
+            tabsetPanel(type = "tabs", tabPanel("Location", h4("Long Ball Location", plotOutput("longBallPlot1", width = "75%", brush = brushOpts(id = "plot1_brush")))), tabPanel("Time", h4("Long Ball Time", plotOutput("longBallPlot2")))),
             
             dataTableOutput("longBallPlot4"),
             
             dataTableOutput("longBallPlot3")
                
         )
-    )
+    ),
+    fluidRow(column(width = 12, h4("Brushed Points"), verbatimTextOutput("brush_info")))
 )
 
 server <- function(input, output) {
@@ -88,6 +89,12 @@ server <- function(input, output) {
             longBallClean %>%  group_by(LongBallSuccess) %>% 
                 count() %>% spread(LongBallSuccess, n) %>% mutate(Tries = `1`+`2`,
                                                                   SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`)
+            
+        })
+        
+        output$brush_info <- renderPrint({
+            
+            brushedPoints(longBallClean, input$plot1_brush)
             
         })
             
