@@ -31,22 +31,10 @@ longBallClean %>% gf_point(longbally ~ longballx, color =~ LongBallSuccess, widt
 ```
 
 ```{r Long Ball Game Duration}
-longBallClean %>% filter(LongBallTimeStamp <= 95) %>% gf_point(LongBall~LongBallTimeStamp, color =~ LongBallSuccess) + scale_color_continuous(low = "blue", high = "red")
-```
-
-```{r Long Ball Game Duration}
 longBallClean %>% mutate(LongBall = as_factor(LongBall), LongBall = fct_lump_min(LongBall, min = 1)) %>% filter(LongBallTimeStamp <= 95) %>%
   mutate(LongBallSuccess = as_factor(LongBallSuccess),
          LongBallSuccess = fct_recode(LongBallSuccess,"Successful"="1", "Unsuccessful"="2")) %>% gf_histogram(~LongBallTimeStamp, fill =~ LongBallSuccess) + scale_fill_manual(values = c("Blue", "Red"))
 ```
-
-
-```{r Long Ball Success Rates}
-longBallClean %>%  group_by(LongBallSuccess) %>% 
-  count() %>% spread(LongBallSuccess, n) %>% mutate(Tries = `1`+`2`,
-    SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
-```
-
 
 ```{r Long Ball Successs Rate by Player}
 longBallClean %>%  group_by(LongBall, LongBallSuccess) %>% 
@@ -61,20 +49,23 @@ longBallClean %>%  group_by(LongBall, LongBallSuccess) %>%
   arrange(desc(Successes, SuccessRate))  
 ```
 
+```{r Long Ball Success Rates}
+longBallClean %>%  group_by(LongBallSuccess) %>% 
+  count() %>% spread(LongBallSuccess, n) %>% mutate(Tries = `1`+`2`,
+    SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
+```
 
 ```{r Key Pass}
 keyPassClean %>% gf_point(keyPassy ~ keyPassx,width = 1, height = 1) + scale_fill_continuous(guide = FALSE) + annotation_custom(rasterGrob(img, width = unit(0.82, "npc"),height = unit(1.1,"npc")),-Inf, Inf, -Inf, Inf) + lims(x=c(-0.6,4.6), y = c(0,5))
 ```
 
 ```{r Key Pass Game Duration}
-keyPassClean %>% filter(KeyPassTimeStamp <= 95) %>% gf_point(KeyPass~KeyPassTimeStamp) 
+keyPassClean %>% mutate(KeyPass = as_factor(KeyPass), KeyPass = fct_lump_min(KeyPass, min = 1)) %>% filter(KeyPassTimeStamp <= 95)%>% gf_histogram(~KeyPassTimeStamp, fill = "Purple")
 ```
-
 
 ```{r Key Pass by Player}
 keyPassClean %>%  group_by(KeyPass) %>% 
   count() %>% rename(JerseyNumber = KeyPass, numberOfKeyPasses = n)  
-# Make Vertical 
 ```
 
 ```{r Take On}
@@ -82,7 +73,7 @@ takeOnClean %>% gf_point(takeOny ~ takeOnx, width = 1, height = 1) + scale_fill_
 ```
 
 ```{r Take On Game Duration}
-takeOnClean %>% filter(TakeOnTimeStamp <= 95) %>% gf_point(TakeOn~TakeOnTimeStamp)
+takeOnClean %>% mutate(TakeOn = as_factor(TakeOn), TakeOn = fct_lump_min(TakeOn, min = 1)) %>% filter(TakeOnTimeStamp <= 95)%>% gf_histogram(~TakeOnTimeStamp, fill = "Purple")
 ```
 
 ```{r Take On Successs Rate by Player}
@@ -99,10 +90,6 @@ takeOnClean %>%  group_by(TakeOn, TakeOnSuccess) %>%
 ```
 
 ```{r Goal Game Duration}
-goalRaw %>% filter(GoalTimeStamp <= 95) %>% gf_point(Goal~GoalTimeStamp)
-```
-
-```{r Goal Game Duration}
 goalRaw %>% mutate(Goal = as_factor(Goal),
                    Goal = fct_lump_min(Goal, min = 5)) %>%
                    
@@ -111,13 +98,47 @@ goalRaw %>% mutate(Goal = as_factor(Goal),
          Goal = fct_recode(Goal,"T. Huerta"="10", "M. Broderick"="5", "M. Histed"="17")) %>% gf_histogram(~GoalTimeStamp, fill = ~ Goal) 
 ```
 
-```{r Assist Game Duration}
-assistClean %>% filter(AssistTimeStamp <= 95) %>% gf_point(Assist~AssistTimeStamp)
+```{r Goal Number Spread}
+goalRaw %>% group_by(Goal) %>% count()
+```
+
+```{r Goal How Spread}
+goalRaw %>% group_by(GoalHow) %>% count()
+```
+
+```{r Goal Which Spread}
+goalRaw %>% group_by(GoalWhich) %>% count()
+```
+
+```{r Goal Where Spread}
+goalRaw %>% group_by(GoalWhere) %>% count()
+```
+
+```{r Assist Number Spread}
+assistClean %>% group_by(Assist) %>% count() 
+```
+
+```{r Assist Which Spread}
+assistClean %>% group_by(AssistWhich) %>% count() 
 ```
 
 ```{r Shot Game Duration}
-shotRaw %>% filter(ShotTimeStamp <= 95) %>% gf_point(Shot~ShotTimeStamp, color =~ ShotFrame) + scale_color_continuous(low = "blue", high = "red")
+shotRaw %>% mutate(Shot = as_factor(Shot), Shot = fct_lump_min(Shot, min = 1)) %>% filter(ShotTimeStamp <= 95) %>%
+  mutate(ShotFrame = as_factor(ShotFrame),
+         ShotFrame = fct_recode(ShotFrame,"On Frame"="1", "Off Frame"="2")) %>% gf_histogram(~ShotTimeStamp, fill =~ ShotFrame) + scale_fill_manual(values = c("Blue", "Red"))
 ```
+
+```{r Shot How Spread}
+shotRaw %>% group_by(ShotHow) %>% count() 
+```
+
+```{r Shot Where Spread}
+shotRaw %>% group_by(ShotWhere) %>% count() 
+```
+
+
+
+
 
 ```{r Steal How by Player}
 stealClean %>%  group_by(Steal, StealHow) %>% 
@@ -134,8 +155,6 @@ stealClean %>%  group_by(Steal, StealHow) %>%
 stealClean %>%  group_by(StealHow) %>% 
   count() %>% spread(StealHow, n) #%>% mutate(Tries = `1`+`2`, SuccessRate = `1`/Tries) %>% rename(Successes = `1`, Fails = `2`) 
 ```
-
-
 
 ```{r Steal Game Duration}
 stealClean %>% filter(StealTimeStamp <= 95) %>% gf_point(Steal~StealTimeStamp)
